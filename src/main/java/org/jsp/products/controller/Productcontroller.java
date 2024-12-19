@@ -100,4 +100,5 @@ public class Productcontroller {
 		public ResponseEntity<Object> updateRecord(@PathVariable int id,@RequestBody Product product){
 			return service.updateProduct(id,product);
 		}
+	
 }
