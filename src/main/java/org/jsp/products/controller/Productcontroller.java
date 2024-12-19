@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController//combination of the contoller and the responsebody
 //Responseentity is used when we want the response along with the status code like 201 cod efor saving
 
@@ -24,6 +26,7 @@ public class Productcontroller {
 	Productservice service;
 	
 	//Saving One Product
+	@Operation(description = "save one products",summary = "save one product")
 	@PostMapping("/products")
 	public ResponseEntity<Object> saveProduct(@RequestBody Product product){
 		return service.saveProduct(product);
@@ -32,6 +35,7 @@ public class Productcontroller {
 	}
 	
 	//Save Multiple Products
+	@Operation(description = "save multiple products",summary = "save Multiple products product")
 	@PostMapping("/products/many")
 	public ResponseEntity<Object> saveProducts(@RequestBody List<Product> products){
 		return service.saveProducts(products);
@@ -44,12 +48,13 @@ public class Productcontroller {
 	}
 	
 	//fetch by id
-	
+	@Operation(summary = "fetch by id")
 	@GetMapping("/products/{id}")
 	public ResponseEntity<Object> fetchById(@PathVariable int id){
 		return service.fetchById(id);
 	}
 	//Fetch Product By Name
+	@Operation(summary = "fetch by name")
 		@GetMapping("/products/name/{name}")
 		public ResponseEntity<Object> fetchByName(@PathVariable String name){
 			return service.fetchByName(name);
@@ -74,6 +79,7 @@ public class Productcontroller {
 		public ResponseEntity<Object> findByNameContaining( @PathVariable String infi){
 			return service.findByNameContaining(infi);
 		}
+		@Operation(summary = "delete by id")
 		@DeleteMapping("/products/{id}")
 		public ResponseEntity<Object> deleteById(@PathVariable int id){
 			return service.deleteById(id);
@@ -82,13 +88,14 @@ public class Productcontroller {
 		//for put mapping all values shoud be passed if not passed that will take the null
 		//when we want full update of object we go for the put mapping
 		//Update Product - PUT
+		@Operation(summary = "update the whole object")
 		@PutMapping("/products")
 		public ResponseEntity<Object> updateRecord(@RequestBody Product product){
 			return service.updateProduct(product);
 		}
 		
 		//patch
-	
+	@Operation(summary = "updating only part of object")
 		@PatchMapping("/products/{id}")
 		public ResponseEntity<Object> updateRecord(@PathVariable int id,@RequestBody Product product){
 			return service.updateProduct(id,product);
